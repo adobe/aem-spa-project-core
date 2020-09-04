@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Maven
+target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# IntelliJ
+.idea/
+*.iml
