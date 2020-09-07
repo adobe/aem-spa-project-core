@@ -61,9 +61,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * traversalDepth) plus the entry point page (even if was excluded based on rules enforced by filterPatterns or traversalDepth). <br>
  * Among other information, the exported structure would contain:
  * <ul>
- * <li>A flat map of all descendants' models identifiable by their paths ({@link PageImpl#getExportedChildren()} -> :children)</li>
- * <li>A map of the content of the page ({@link PageImpl#getExportedItems()} -> :items), together with the order
- * ({@link PageImpl#getExportedItemsOrder()} -> :itemsOrder</li>
+ * <li>A flat map of all descendants' models identifiable by their paths ({@link PageImpl#getExportedChildren()} to :children)</li>
+ * <li>A map of the content of the page ({@link PageImpl#getExportedItems()} to :items), together with the order
+ * ({@link PageImpl#getExportedItemsOrder()} to :itemsOrder</li>
  * </ul>
  */
 @Model(adaptables = SlingHttpServletRequest.class, adapters = { Page.class,

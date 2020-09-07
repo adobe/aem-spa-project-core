@@ -190,14 +190,14 @@ public class HierarchyUtils {
                 if (pageContentResource != null) {
                     ContentPolicy contentPolicy = contentPolicyManager.getPolicy(pageContentResource);
                     if (ContentPolicyUtils.propertyIsTrue(contentPolicy, PN_IS_ROOT)) {
-                        // Is the root page -> return it
+                        // Is the root page to return it
                         LOGGER.debug("Found SPA root page: {}", tempRootPage.getPath());
                         return tempRootPage;
                     }
                 }
             }
 
-            // Is not the root page -> move up the tree
+            // Is not the root page to move up the tree
             tempRootPage = tempRootPage.getParent();
         }
 
