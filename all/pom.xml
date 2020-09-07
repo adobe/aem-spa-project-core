@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.adobe.aem</groupId>
         <artifactId>aem.project.core</artifactId>
-        <version>1.0.11-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -44,11 +44,6 @@
                         <subPackage>
                             <groupId>com.adobe.aem</groupId>
                             <artifactId>aem.spa.project.core.ui.apps</artifactId>
-                            <filter>true</filter>
-                        </subPackage>
-                        <subPackage>
-                            <groupId>com.adobe.cq</groupId>
-                            <artifactId>core.wcm.components.all</artifactId>
                             <filter>true</filter>
                         </subPackage>
                     </subPackages>
@@ -131,12 +126,12 @@
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>aem.project.core.core</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>aem.project.core.ui.apps</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
             <type>zip</type>
         </dependency>
 
