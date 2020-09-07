@@ -35,6 +35,9 @@
         <bnd.version>4.2.0</bnd.version>
         <maven.release.version>2.5.3</maven.release.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <sonar.projectKey>adobe_aem-spa-project-core</sonar.projectKey>
+        <sonar.organization>adobeinc</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <scm>
