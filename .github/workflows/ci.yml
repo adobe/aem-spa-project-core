@@ -29,7 +29,7 @@ jobs:
       - name: Upload code coverage report to codecov.io and comment in pull request
         uses: codecov/codecov-action@v1
       - name: Upload Sonar report to sonarcloud.io and comment in pull request
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=dobe_aem-project-core -Dsonar.organization=adobeinc -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.coverage.jacoco.xmlReportPaths=${project.build.directory}/../core/target/site/jacoco/jacoco.xml
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=dobe_aem-project-core -Dsonar.organization=adobeinc -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.coverage.jacoco.xmlReportPaths=../core/target/site/jacoco/jacoco.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
