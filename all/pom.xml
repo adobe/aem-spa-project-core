@@ -6,7 +6,7 @@
     <!-- ====================================================================== -->
     <parent>
         <groupId>com.adobe.aem</groupId>
-        <artifactId>spa.project.core</artifactId>
+        <artifactId>aem.project.core</artifactId>
         <version>1.0.11-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -14,7 +14,7 @@
     <!-- ====================================================================== -->
     <!-- P R O J E C T  D E S C R I P T I O N                                   -->
     <!-- ====================================================================== -->
-    <artifactId>spa.project.core.all</artifactId>
+    <artifactId>aem.spa.project.core.all</artifactId>
     <packaging>content-package</packaging>
     <name>spa-project-core - All</name>
     <description>All content package for spa-project-core</description>
@@ -36,14 +36,14 @@
                     <embeddeds>
                         <embedded>
                             <groupId>com.adobe.aem</groupId>
-                            <artifactId>spa.project.core.core</artifactId>
+                            <artifactId>aem.spa.project.core.core</artifactId>
                             <target>/apps/spa-project-core/install</target>
                         </embedded>
                     </embeddeds>
                     <subPackages>
                         <subPackage>
                             <groupId>com.adobe.aem</groupId>
-                            <artifactId>spa.project.core.ui.apps</artifactId>
+                            <artifactId>aem.spa.project.core.ui.apps</artifactId>
                             <filter>true</filter>
                         </subPackage>
                         <subPackage>
@@ -130,12 +130,12 @@
     <dependencies>
         <dependency>
             <groupId>com.adobe.aem</groupId>
-            <artifactId>spa.project.core.core</artifactId>
+            <artifactId>aem.project.core.core</artifactId>
             <version>1.0.11-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.adobe.aem</groupId>
-            <artifactId>spa.project.core.ui.apps</artifactId>
+            <artifactId>aem.project.core.ui.apps</artifactId>
             <version>1.0.11-SNAPSHOT</version>
             <type>zip</type>
         </dependency>

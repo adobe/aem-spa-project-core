@@ -7,7 +7,7 @@
     <!-- ====================================================================== -->
     <parent>
         <groupId>com.adobe.aem</groupId>
-        <artifactId>spa.project.core</artifactId>
+        <artifactId>aem.project.core</artifactId>
         <version>1.0.11-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -15,7 +15,7 @@
     <!-- ====================================================================== -->
     <!-- P R O J E C T  D E S C R I P T I O N                                   -->
     <!-- ====================================================================== -->
-    <artifactId>spa.project.core.ui.apps</artifactId>
+    <artifactId>aem.project.core.ui.apps</artifactId>
     <packaging>content-package</packaging>
     <name>spa-project-core - UI apps</name>
     <description>UI apps package for spa-project-core</description>
@@ -35,7 +35,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <group>com.adobe.aem</group>
-                    <name>spa.project.core.ui.apps</name>
+                    <name>aem.project.core.ui.apps</name>
                     <packageType>application</packageType>
                     <accessControlHandling>merge</accessControlHandling>
                     <properties>
