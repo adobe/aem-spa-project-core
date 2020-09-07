@@ -4,7 +4,7 @@
     <groupId>com.adobe.aem</groupId>
     <artifactId>aem.project.core</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>AEM SPA Project Core</name>
     <description>spa-project-core</description>
     <url>https://github.com/adobe/aem-spa-project-core</url>
