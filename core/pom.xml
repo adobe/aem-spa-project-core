@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.adobe.aem</groupId>
-        <artifactId>aem.project.core</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <artifactId>spa.project.core</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>aem.project.core.core</artifactId>
+    <artifactId>spa.project.core.core</artifactId>
     <name>spa-project-core - Core</name>
     <description>Core bundle for spa-project-core</description>
     <build>
@@ -30,7 +30,7 @@
                                 <![CDATA[
 Bundle-Category: spa-project-core
 -exportcontents: ${packages;VERSIONED}
-Sling-Model-Packages: com.adobe.aem.aem.project.core
+Sling-Model-Packages: com.adobe.aem.spa.project.core
 -snapshot: ${tstamp;yyyyMMddHHmmssSSS}
 Bundle-DocURL:
                                 ]]>
