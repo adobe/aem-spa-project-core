@@ -34,13 +34,23 @@
                 <artifactId>filevault-package-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
-                    <group>com.adobe.aem</group>
-                    <name>spa.project.core.ui.apps</name>
+                    <filters>
+                        <filter>
+                            <root>/apps/spa-project-core/components</root>
+                        </filter>
+                    </filters>
                     <packageType>application</packageType>
                     <accessControlHandling>merge</accessControlHandling>
                     <properties>
                         <cloudManagerTarget>none</cloudManagerTarget>
                     </properties>
+                    <dependencies>
+                        <dependency>
+                            <group>day/cq60/product</group>
+                            <name>cq-platform-content</name>
+                            <version>[1.3.248,)</version>
+                        </dependency>
+                    </dependencies>
                 </configuration>
             </plugin>
             <plugin>
