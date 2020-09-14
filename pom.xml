@@ -321,6 +321,11 @@
                                     <validRoots>/,/apps,/apps/spa-project-core</validRoots>
                                 </options>
                             </jackrabbit-filter>
+                            <jackrabbit-nodetypes>
+                                <options>
+                                    <cnds>tccl:aem.cnd</cnds>
+                                </options>
+                            </jackrabbit-nodetypes>
                             <netcentric-aem-classification>
                                 <defaultSeverity>WARN</defaultSeverity>
                                 <options>
@@ -346,6 +351,11 @@
                             <groupId>biz.netcentric.filevault.validator.maps</groupId>
                             <artifactId>aem-classification-map-deprecations</artifactId>
                             <version>6.5.0.0</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>biz.netcentric.aem</groupId>
+                            <artifactId>aem-nodetypes</artifactId>
+                            <version>6.5.5.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>
