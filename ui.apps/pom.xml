@@ -34,6 +34,7 @@
                 <artifactId>filevault-package-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
+                    <group>spa-project-core</group>
                     <filters>
                         <filter>
                             <root>/apps/spa-project-core/components</root>
