@@ -33,6 +33,11 @@
                 <extensions>true</extensions>
                 <configuration>
                     <group>spa-project-core</group>
+                    <filters>
+                        <filter>
+                            <root>/apps/spa-project-core/install</root>
+                        </filter>
+                    </filters>
                     <embeddeds>
                         <embedded>
                             <groupId>com.adobe.aem</groupId>
@@ -47,6 +52,7 @@
                             <filter>true</filter>
                         </subPackage>
                     </subPackages>
+                    <packageType>container</packageType>
                 </configuration>
             </plugin>
             <plugin>
