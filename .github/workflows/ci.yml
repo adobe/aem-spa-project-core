@@ -16,11 +16,6 @@ jobs:
           java-version: 11
       - name: Install dependencies and Build the project
         run: mvn clean install
-      - name: Run code linter
-        uses: nikitasavinov/checkstyle-action@master
-        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload code coverage report to workflow as an artifact
         uses: actions/upload-artifact@v2
         with:
