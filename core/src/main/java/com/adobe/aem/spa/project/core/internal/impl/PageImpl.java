@@ -307,7 +307,7 @@ public class PageImpl implements Page {
         return delegate.hasCloudconfigSupport();
     }
 
-    // Delegated to Page v2
+    // Delegated to Page v2 
     @NotNull
     @Override
     public Set<String> getComponentsResourceTypes() {
