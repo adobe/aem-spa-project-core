@@ -248,8 +248,9 @@ public class PageImpl implements Page {
     }
 
     // Delegated to Page v2
+    @Nullable
     @Override
-    public @Nullable String getMainContentSelector() {
+    public String getMainContentSelector() {
         return delegate.getMainContentSelector();
     }
 
@@ -307,8 +308,9 @@ public class PageImpl implements Page {
     }
 
     // Delegated to Page v2
+    @NotNull
     @Override
-    public @NotNull Set<String> getComponentsResourceTypes() {
+    public Set<String> getComponentsResourceTypes() {
         return delegate.getComponentsResourceTypes();
     }
 }

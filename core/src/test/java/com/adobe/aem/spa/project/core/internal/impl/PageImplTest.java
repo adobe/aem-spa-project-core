@@ -39,6 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -59,6 +61,9 @@ class PageImplTest {
     @Mock
     private SlingHttpServletRequest request;
 
+    @Mock
+    private com.adobe.cq.wcm.core.components.models.Page delegate;
+
     @InjectMocks
     private PageImpl page;
 
@@ -76,6 +81,10 @@ class PageImplTest {
         // Request
         RequestParameter requestParameter = mock(RequestParameter.class);
         when(request.getRequestParameter(eq(PN_STRUCTURE_PATTERNS.toLowerCase()))).thenReturn(requestParameter);
+
+        // Mock delegated methods where required to prevent errors
+        when(delegate.getExportedItemsOrder()).thenReturn(new String[] {});
+        when(delegate.getExportedType()).thenReturn("some/resource/type");
     }
 
     @Test
@@ -128,4 +137,120 @@ class PageImplTest {
         when(currentStyle.get(HierarchyConstants.PN_IS_ROOT, false)).thenReturn(true);
         assertEquals(page, page.getHierarchyRootModel());
     }
+
+    // Test delegations
+    @Test
+    void testGetLanguage() {
+        page.getLanguage();
+        verify(delegate, times(1)).getLanguage();
+    }
+
+    @Test
+    void testGetLastModifiedDate() {
+        page.getLastModifiedDate();
+        verify(delegate, times(1)).getLastModifiedDate();
+    }
+
+    @Test
+    void testGetKeywords() {
+        page.getKeywords();
+        verify(delegate, times(1)).getKeywords();
+    }
+
+    @Test
+    void testGetDesignPath() {
+        page.getDesignPath();
+        verify(delegate, times(1)).getDesignPath();
+    }
+
+    @Test
+    void testGetStaticDesignPath() {
+        page.getStaticDesignPath();
+        verify(delegate, times(1)).getStaticDesignPath();
+    }
+
+    @Test
+    void testGetTitle() {
+        page.getTitle();
+        verify(delegate, times(1)).getTitle();
+    }
+
+    @Test
+    void testGetTemplateName() {
+        page.getTemplateName();
+        verify(delegate, times(1)).getTemplateName();
+    }
+
+    @Test
+    void testGetClientLibCategories() {
+        page.getClientLibCategories();
+        verify(delegate, times(1)).getClientLibCategories();
+    }
+
+    @Test
+    void testGetExportedType() {
+        page.getExportedType();
+        verify(delegate, times(1)).getExportedType();
+    }
+
+    @Test
+    void testGetMainContentSelector() {
+        page.getMainContentSelector();
+        verify(delegate, times(1)).getMainContentSelector();
+    }
+
+    @Test
+    void testGetClientLibCategoriesJsBody() {
+        page.getClientLibCategoriesJsBody();
+        verify(delegate, times(1)).getClientLibCategoriesJsBody();
+    }
+
+    @Test
+    void testGetClientLibCategoriesJsHead() {
+        page.getClientLibCategoriesJsBody();
+        verify(delegate, times(1)).getClientLibCategoriesJsBody();
+    }
+
+    @Test
+    void testGetAppResourcesPath() {
+        page.getAppResourcesPath();
+        verify(delegate, times(1)).getAppResourcesPath();
+    }
+
+    @Test
+    void testGetCssClassNames() {
+        page.getCssClassNames();
+        verify(delegate, times(1)).getCssClassNames();
+    }
+
+    @Test
+    void testGetExportedItemsOrder() {
+        page.getExportedItemsOrder();
+        verify(delegate, times(1)).getExportedItemsOrder();
+    }
+
+    @Test
+    void testGetExportedItems() {
+        page.getExportedItems();
+        verify(delegate, times(1)).getExportedItems();
+    }
+
+    @Test
+    void testGetRedirectTarget() {
+        page.getRedirectTarget();
+        verify(delegate, times(1)).getRedirectTarget();
+    }
+
+    @Test
+    void testHasCloudconfigSupport() {
+        page.hasCloudconfigSupport();
+        verify(delegate, times(1)).hasCloudconfigSupport();
+    }
+
+    @Test
+    void testGetComponentsResourceTypes() {
+        page.getComponentsResourceTypes();
+        verify(delegate, times(1)).getComponentsResourceTypes();
+    }
+
 }
