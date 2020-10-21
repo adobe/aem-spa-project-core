@@ -15,6 +15,7 @@ package com.adobe.aem.spa.project.core.internal.impl;
 import java.util.Calendar;
 import java.util.Map;
 
+import java.util.Set;
 import javax.inject.Inject;
 
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -247,6 +248,13 @@ public class PageImpl implements Page {
     }
 
     // Delegated to Page v2
+    @Nullable
+    @Override
+    public String getMainContentSelector() {
+        return delegate.getMainContentSelector();
+    }
+
+    // Delegated to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsBody() {
@@ -297,5 +305,12 @@ public class PageImpl implements Page {
     @Override
     public boolean hasCloudconfigSupport() {
         return delegate.hasCloudconfigSupport();
+    }
+
+    // Delegated to Page v2 
+    @NotNull
+    @Override
+    public Set<String> getComponentsResourceTypes() {
+        return delegate.getComponentsResourceTypes();
     }
 }
