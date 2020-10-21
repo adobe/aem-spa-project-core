@@ -1,7 +1,7 @@
 # SPA Project Core
 
 [![License](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/adobe/aem-spa-project-core/blob/master/LICENSE)
-[![Version](https://img.shields.io/maven-metadata/v/https/oss.sonatype.org/service/local/repositories/releases/content/com/adobe/aem/aem.spa.project.core.all/maven-metadata.xml.svg?label=Version)](https://mvnrepository.com/artifact/com.adobe.aem/aem.project.core)
+[![Version](https://img.shields.io/maven-metadata/v/https/oss.sonatype.org/service/local/repositories/releases/content/com/adobe/aem/spa.project.core.all/maven-metadata.xml.svg?label=Version)](https://mvnrepository.com/artifact/com.adobe.aem/spa.project.core)
 
 
 
