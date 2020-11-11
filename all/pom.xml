@@ -37,7 +37,7 @@
                         <embedded>
                             <groupId>com.adobe.aem</groupId>
                             <artifactId>spa.project.core.core</artifactId>
-                            <target>/apps/spa-project-core/install</target>
+                            <target>/apps/spa-project-core-bundles/install</target>
                         </embedded>
                     </embeddeds>
                     <subPackages>
