@@ -14,29 +14,31 @@
  ~ limitations under the License.
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
- (function(){
-     const domain = document.body.dataset.remoteUrl || 'http://localhost:3000/';
-     if(domain) {
-         fetch(domain + 'asset-manifest.json')
-           .then(response => response.json())
-           .then(asset => {
-             asset.entrypoints.forEach(item => {
-                const filePath = domain + "" + item;
-         		if(item.indexOf('.css') >0) {
-         		  const link = document.createElement("link");
-           		  link.type = "text/css";
-                   link.rel = "stylesheet";
-                   link.href = filePath;
 
-           		  document.head.appendChild(link);
-         		} else {
-          			const script = document.createElement("script");
-                     script.type = "text/javascript";
-                     script.src = filePath;
-                     script.crossOrigin = '';
-                     document.body.appendChild(script);
-                 }
-             });
-         });
-     }
- })();
+(function (document) {
+
+  const generateScriptLink = (path) => {
+    const element = document.createElement("script");
+    element.type = "text/javascript"
+    element.src = path;
+    element.crossOrigin = '';
+
+    return element;
+  }
+  const domain = document.body.dataset.remoteUrl;
+  if (domain) {
+      console.log(`Fetching asset manifest from ${domain}`);
+    fetch(domain + '/asset-manifest.json')
+      .then(response => response.json())
+      .then(asset => {
+        console.log(`Got asset entries`, asset);
+        const entrypoints = asset.entrypoints;
+
+        entrypoints.client.js.forEach ( entry => {
+            const filePath = `${domain}${entry}`;
+            console.log(`Generate script tag for ${filePath}`);
+            document.body.appendChild(generateScriptLink(filePath));
+        })
+      });
+  }
+})(document);
