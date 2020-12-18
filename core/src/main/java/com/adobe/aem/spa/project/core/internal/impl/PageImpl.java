@@ -77,6 +77,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class PageImpl implements Page {
 
     static final String RESOURCE_TYPE = "spa-project-core/components/page";
+    static final String RESOURCE_TYPE_REMOTE = "spa-project-core/components/remotepage";
 
     // Delegated to Page v1
     @ScriptVariable
