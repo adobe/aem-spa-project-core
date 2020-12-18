@@ -19,8 +19,7 @@
 >
   <head data-sly-call="${head.head @ page = page}"></head>
 
-  <body class="${page.cssClassNames}" data-remote-url="${page.remotePageUrl}">
-      <h2>${page.remotePageUrl}</h2>
+  <body class="${page.cssClassNames}" data-remote-url="${page.remoteSPAUrl}">
     <sly
       data-sly-test.isRedirectPage="${page.redirectTarget && (wcmmode.edit || wcmmode.preview)}"
       data-sly-call="${redirect.redirect @ redirectTarget = page.redirectTarget}"

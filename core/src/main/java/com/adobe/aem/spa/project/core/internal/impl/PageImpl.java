@@ -26,6 +26,7 @@ import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
+import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.apache.sling.models.annotations.via.ResourceSuperType;
 import org.apache.sling.models.factory.ModelFactory;
 import org.jetbrains.annotations.NotNull;
@@ -67,8 +68,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * ({@link PageImpl#getExportedItemsOrder()} to :itemsOrder</li>
  * </ul>
  */
-@Model(adaptables = SlingHttpServletRequest.class, adapters = { Page.class,
-    ContainerExporter.class }, resourceType = PageImpl.RESOURCE_TYPE)
+@Model(
+    adaptables = SlingHttpServletRequest.class,
+    adapters = { Page.class, ContainerExporter.class },
+    resourceType = { PageImpl.RESOURCE_TYPE,PageImpl.RESOURCE_TYPE_REMOTE  }
+    )
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class PageImpl implements Page {
 
@@ -101,6 +105,9 @@ public class PageImpl implements Page {
     @Self
     @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Page delegate;
+
+    @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
+    private String remoteSPAUrl;
 
     /**
      * {@link Map} containing the page models with their corresponding paths (as keys)
@@ -247,6 +254,12 @@ public class PageImpl implements Page {
         return delegate.getExportedType();
     }
 
+    // Delegated to Page v1
+//     @Override
+//     public Set<String> getComponentsResourceTypes() {
+//        return delegate.getComponentsResourceTypes();
+//     }
+
     // Delegated to Page v2
     @Nullable
     @Override
@@ -307,10 +320,8 @@ public class PageImpl implements Page {
         return delegate.hasCloudconfigSupport();
     }
 
-    // Delegated to Page v2 
-    @NotNull
     @Override
-    public Set<String> getComponentsResourceTypes() {
-        return delegate.getComponentsResourceTypes();
+    public String getRemoteSPAUrl() {
+        return remoteSPAUrl;
     }
 }

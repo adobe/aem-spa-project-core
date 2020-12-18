@@ -105,4 +105,6 @@ public interface Page extends com.adobe.cq.wcm.core.components.models.Page, Hier
     default Map<String, ? extends HierarchyNodeExporter> getExportedChildren() {
         throw new UnsupportedOperationException();
     }
+
+    public String getRemoteSPAUrl();
 }

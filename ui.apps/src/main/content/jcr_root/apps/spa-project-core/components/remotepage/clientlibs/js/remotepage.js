@@ -15,26 +15,47 @@
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
  (function(){
-     const domain = document.body.dataset.remoteUrl || 'http://localhost:3000/';
+
+    const generateScriptLink = (path) => {
+        const element = document.createElement('script');
+        element.type = 'text/javascript'
+        element.src = path;
+
+        return element;
+    };
+
+    const generateStyleLink = (path) => {
+        const element = document.createElement('link');
+        element.type = 'text/css';
+        element.rel = 'stylesheet';
+        element.href = path;
+
+        return element;
+    };
+
+    const sanitizeUrl = (url) => {
+        let { pathname, origin } = new URL(url);
+        pathname.replace(/\/\//, '/');
+        return `${origin}${pathname}`;
+    };
+
+     const domain = document.body.dataset.remoteUrl;
      if(domain) {
-         fetch(domain + 'asset-manifest.json')
+         const manifestUrl = sanitizeUrl(`${domain}/asset-manifest.json`);
+         fetch(manifestUrl)
            .then(response => response.json())
            .then(asset => {
-             asset.entrypoints.forEach(item => {
-                const filePath = domain + "" + item;
-         		if(item.indexOf('.css') >0) {
-         		  const link = document.createElement("link");
-           		  link.type = "text/css";
-                   link.rel = "stylesheet";
-                   link.href = filePath;
-
-           		  document.head.appendChild(link);
+              const { entrypoints } = asset;
+              const files = Array.isArray(entrypoints) ? entrypoints : entrypoints.client.js;
+              files.forEach(item => {
+                const filePath = sanitizeUrl(`${domain}/${item}`);
+                let element;
+         		if(item.indexOf('.css') > 0) {
+                    element = generateStyleLink(filePath);
+                    document.head.appendChild(element);
          		} else {
-          			const script = document.createElement("script");
-                     script.type = "text/javascript";
-                     script.src = filePath;
-                     script.crossOrigin = '';
-                     document.body.appendChild(script);
+                    element = generateScriptLink(filePath);
+                    document.body.appendChild(element);
                  }
              });
          });
