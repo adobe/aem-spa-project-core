@@ -71,7 +71,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Model(
     adaptables = SlingHttpServletRequest.class,
     adapters = { Page.class, ContainerExporter.class },
-    resourceType = { PageImpl.RESOURCE_TYPE,PageImpl.RESOURCE_TYPE_REMOTE  }
+    resourceType = { PageImpl.RESOURCE_TYPE, PageImpl.RESOURCE_TYPE_REMOTE  }
     )
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class PageImpl implements Page {
@@ -256,10 +256,10 @@ public class PageImpl implements Page {
     }
 
     // Delegated to Page v1
-//     @Override
-//     public Set<String> getComponentsResourceTypes() {
-//        return delegate.getComponentsResourceTypes();
-//     }
+    @Override
+    public Set<String> getComponentsResourceTypes() {
+       return delegate.getComponentsResourceTypes();
+    }
 
     // Delegated to Page v2
     @Nullable
