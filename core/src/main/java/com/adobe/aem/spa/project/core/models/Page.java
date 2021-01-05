@@ -106,5 +106,10 @@ public interface Page extends com.adobe.cq.wcm.core.components.models.Page, Hier
         throw new UnsupportedOperationException();
     }
 
-    public String getRemoteSPAUrl();
+    /**
+     * @return the remote SPA page's URL, if one was set, or {@code null}
+     */
+    default String getRemoteSPAUrl() {
+        throw new UnsupportedOperationException();
+    }
 }

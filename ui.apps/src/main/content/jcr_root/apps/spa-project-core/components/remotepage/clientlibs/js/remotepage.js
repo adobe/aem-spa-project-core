@@ -46,18 +46,23 @@
            .then(response => response.json())
            .then(asset => {
               const { entrypoints } = asset;
-              const files = Array.isArray(entrypoints) ? entrypoints : entrypoints.client.js;
-              files.forEach(item => {
-                const filePath = sanitizeUrl(`${domain}/${item}`);
-                let element;
-         		if(item.indexOf('.css') > 0) {
-                    element = generateStyleLink(filePath);
-                    document.head.appendChild(element);
-         		} else {
-                    element = generateScriptLink(filePath);
-                    document.body.appendChild(element);
-                 }
-             });
+              let files = entrypoints?.client?.js || entrypoints;
+
+              if (Array.isArray(files)) {
+                  const bodyFragment = document.createDocumentFragment();
+                  const headFragment = document.createDocumentFragment();
+
+                  files.forEach(item => {
+                    const filePath = sanitizeUrl(`${domain}/${item}`);
+                    if(item.indexOf('.css') > 0) {
+                        headFragment.appendChild(generateStyleLink(filePath));
+                    } else {
+                        bodyFragment.appendChild(generateScriptLink(filePath));
+                    }
+                 });
+                 headFragment.hasChildNodes() && document.head.appendChild(headFragment);
+                 bodyFragment.hasChildNodes() && document.body.appendChild(bodyFragment);
+              }
          });
      }
  })();
