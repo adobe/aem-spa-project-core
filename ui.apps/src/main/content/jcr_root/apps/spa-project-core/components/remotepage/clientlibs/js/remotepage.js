@@ -35,7 +35,7 @@
 
     const sanitizeUrl = (url) => {
         let { pathname, origin } = new URL(url);
-        pathname.replace(/\/\//, '/');
+        pathname = pathname.replace(/\/\//, '/');
         return `${origin}${pathname}`;
     };
 

@@ -321,6 +321,8 @@ public class PageImpl implements Page {
         return delegate.hasCloudconfigSupport();
     }
 
+    // Delegated to Page v2
+    @NotNull
     @Override
     public String getRemoteSPAUrl() {
         return remoteSPAUrl;
