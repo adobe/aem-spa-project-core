@@ -41,13 +41,20 @@
                                 jcr:primaryType="nt:unstructured"
                                 sling:resourceType="granite/ui/components/coral/foundation/container">
                                 <items jcr:primaryType="nt:unstructured">
-                                    <remoteSPAUrl
+                                    <section
                                         jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                        name="./remoteSPAUrl"
-                                        fieldLabel="Remote SPA URL"
-                                        cq:showOnCreate="true"
-                                        fieldDescription="Remote SPA host"/>
+                                        jcr:title="Remote SPA Configuration"
+                                        sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <remoteSPAUrl
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                name="./remoteSPAUrl"
+                                                fieldLabel="SPA Host URL"
+                                                cq:showOnCreate="true"
+                                                fieldDescription="Host URL of the remote SPA to be edited. For eg: to edit an SPA at https://test.com/sample, provide https://test.com in the field."/>
+                                        </items>
+                                    </section>
                                 </items>
                             </column>
                         </items>
