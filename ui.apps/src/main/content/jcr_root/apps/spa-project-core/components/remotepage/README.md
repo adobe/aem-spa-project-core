@@ -19,7 +19,7 @@ When `npm run build` is run in a create-react-app project, react-scripts u
 
 ## Requirements
 
-### Enable CORS
+### Enable CORS in Developement
 Since AEM needs to fetch the asset-manifest of the SPA hosted on a different domain, we need to enable CORS in the application.To do this, React provides an option to [configure proxy manually](https://create-react-app.dev/docs/proxying-api-requests-in-development/#configuring-the-proxy-manually)
 and update the response header.
 
