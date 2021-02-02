@@ -51,5 +51,5 @@ By default, the remotepage component creates an element -
 If the remote application to be edited has a different root DOM element/id, please override the [body.html](./body.html) in the extended component.
 
 ## Limitations
-- Current implementation support remote React applications only.
+- Current implementation supports remote React applications only.
 - Internal css defined in the application's root html file as well as inline css on the root DOM node will not be available when doing remote rendering in AEM. However all external style sheets will be available as expected, as well as all styles within the React application.
