@@ -9,8 +9,21 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-
-@Version("1.1.0")
 package com.adobe.aem.spa.project.core.models;
 
-import org.osgi.annotation.versioning.Version;
+import org.jetbrains.annotations.Nullable;
+import org.osgi.annotation.versioning.ConsumerType;
+
+/**
+ * Defines the {@code RemotePage} Sling Model used for the {@code /apps/spa/project/core/models/remotepage} component
+ */
+@ConsumerType
+public interface RemotePage extends Page {
+    /**
+     * @return the remote SPA page's URL, if one was set, or {@code null}
+     */
+     @Nullable
+     default String getRemoteSPAUrl() {
+         throw new UnsupportedOperationException();
+     }
+}
