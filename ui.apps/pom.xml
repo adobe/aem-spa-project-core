@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.adobe.aem</groupId>
         <artifactId>spa.project.core</artifactId>
-        <version>1.2.3-CQ-4311032-B001</version>
+        <version>1.2.3-CQ-4311032-B002-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
