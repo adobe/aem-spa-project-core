@@ -31,9 +31,10 @@
         <sling.password>admin</sling.password>
         <vault.user>admin</vault.user>
         <vault.password>admin</vault.password>
-        <core.wcm.components.version>2.11.1</core.wcm.components.version>
+        <core.wcm.components.version>2.15.0</core.wcm.components.version>
         <bnd.version>4.2.0</bnd.version>
         <maven.release.version>2.5.3</maven.release.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <sonar.organization>adobeinc</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
