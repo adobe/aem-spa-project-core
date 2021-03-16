@@ -52,7 +52,7 @@
                                                 name="./remoteSPAUrl"
                                                 fieldLabel="SPA Host URL"
                                                 cq:showOnCreate="true"
-                                                fieldDescription="Host URL of the remote SPA to be edited. For eg: to edit an SPA at https://test.com/sample, provide https://test.com in the field."/>
+                                                fieldDescription="URL of the remote SPA page to be edited" />
                                         </items>
                                     </section>
                                 </items>

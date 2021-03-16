@@ -5,4 +5,4 @@
     jcr:title="Remote Page Next"
     sling:resourceSuperType="core/wcm/components/page/v2/page"
     componentGroup=".core-wcm"
-    designDialogPath="spa-project-core/components/remotepage/cq:design_dialog" />
+    designDialogPath="spa-project-core/components/page/cq:design_dialog" />

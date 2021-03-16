@@ -59,7 +59,9 @@
     const remoteUrl = document.body.dataset.remoteUrl;
 
     if(remoteUrl) {
-        const { origin, pathname } = new URL(remoteUrl);
+        let { origin, pathname } = new URL(remoteUrl);
+        // Remove trailing slash
+        pathname = pathname.replace(/\/$/,'');
         fetch(`${origin}/api/getNextProps?path=${pathname}`)
         .then(res => res.json())
         .then(res => {
