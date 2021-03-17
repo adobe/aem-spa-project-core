@@ -107,6 +107,29 @@ The remote application's URL can be set via the Page Properties, which is then w
 The URL to be provided is the URL of the specific Next.js page to be edited. In most cases, this would be the host URL of the application.
 For eg:  for editing a remote Next.js page at `https://test.com/abc`, this same URL needs to be provided in AEM as well.
 
+### Displaying images in AEM
+When using the [Image](https://nextjs.org/docs/api-reference/next/image) component provided by `next/image`, the image `src` is usually provided as a relative path to the image within the project.To load the image in AEM, the URL needs to be absolute. For this we can use the `loader` prop provided by `next/image`.
 
-## Limitations
--
+A sample implementation of an Image component using absolute URL is as follows -
+
+```javascript
+import Image from 'next/image';
+const { NEXT_PUBLIC_URL } = process.env;
+
+const myLoader = ({ src, width, quality }) => {
+    return `${NEXT_PUBLIC_URL}${src}?w=${width}&q=${quality || 75}`
+}
+
+export default function Test({...}) {
+    return (
+        <Image
+          loader={myLoader}
+          src="images/profile.jpg"
+          height={108}
+          width={108}
+          alt={name}
+        />
+    );
+}
+```
+where `NEXT_PUBLIC_URL` is the origin of the Next.js app being edited.
