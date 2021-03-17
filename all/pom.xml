@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.adobe.aem</groupId>
         <artifactId>spa.project.core</artifactId>
-        <version>1.2.8</version>
+        <version>1.2.9-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -126,12 +126,12 @@
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>spa.project.core.core</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.9-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>spa.project.core.ui.apps</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.9-SNAPSHOT</version>
             <type>zip</type>
         </dependency>
 
