@@ -50,9 +50,9 @@
                                                 jcr:primaryType="nt:unstructured"
                                                 sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                                                 name="./remoteSPAUrl"
-                                                fieldLabel="SPA Host URL"
+                                                fieldLabel="Next.js Page URL"
                                                 cq:showOnCreate="true"
-                                                fieldDescription="URL of the remote SPA page to be edited" />
+                                                fieldDescription="URL of the remote Next.js page to be edited" />
                                         </items>
                                     </section>
                                 </items>
