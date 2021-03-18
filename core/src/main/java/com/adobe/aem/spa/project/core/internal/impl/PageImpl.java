@@ -313,4 +313,10 @@ public class PageImpl implements Page {
     public Set<String> getComponentsResourceTypes() {
         return delegate.getComponentsResourceTypes();
     }
+    
+    // Delegated to Page v2 
+    @Override
+    public String getBrandSlug() {
+		return delegate.getBrandSlug();
+	}
 }
