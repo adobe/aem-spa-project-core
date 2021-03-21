@@ -29,21 +29,21 @@ Here we are using the [next-assets-manifest](https://www.npmjs.com/package/next-
 const withAssetsManifest = require('next-assets-manifest');
 
 module.exports = withAssetsManifest({
-  assetsManifest: {
-    output: "../public/asset-manifest.json",
-    transform: (assets, manifest) => {
-        const entrypoints = [];
-      	for(let file in assets) {
-            if(assets[file].endsWith(".js") || assets[file].endsWith(".css")) {
-            	entrypoints.push(assets[file]);
+    assetsManifest: {
+        output: "../public/asset-manifest.json",
+        transform: (assets, manifest) => {
+            const entrypoints = [];
+            for (let file in assets) {
+                if(assets[file].endsWith(".js") || assets[file].endsWith(".css")) {
+                    entrypoints.push(assets[file]);
+                }
             }
+            return {
+                files: assets,
+                entrypoints: entrypoints
+            };
         }
-        return {
-          files: assets,
-          entrypoints: entrypoints
-        };
-      }
-  }
+    }
 });
 ```
 
@@ -58,13 +58,13 @@ const { DOMParser } = require('xmldom');
 const { NEXT_PUBLIC_URL} = process.env;
 
 export default function handler(req, res) {
-  let { path } = req.query;
+    let { path } = req.query;
 
-  fetch(NEXT_PUBLIC_URL + (path || ''))
+    fetch(NEXT_PUBLIC_URL + (path || ''))
     .then(t => t.text())
     .then(t => {
         const parser = new DOMParser();
-	    const doc = parser.parseFromString(t, 'text/html');
+        const doc = parser.parseFromString(t, 'text/html');
         const data = doc.getElementById("__NEXT_DATA__").textContent;
         res.status(200).json(data);
     });
@@ -84,16 +84,14 @@ const { NEXT_PUBLIC_AEM_HOST_URI } = process.env;
 
 module.exports = withAssetsManifest({
     async headers() {
-      return [
-          {
-            source: '/api/getNextProps',
-            headers: [
-              {
-                key: 'Access-Control-Allow-Origin',
-                value: NEXT_PUBLIC_AEM_HOST_URI
-              },
-            ],
-          },
+        return [
+            {
+                source: '/api/getNextProps',
+                headers: [{
+                    key: 'Access-Control-Allow-Origin',
+                    value: NEXT_PUBLIC_AEM_HOST_URI
+                }],
+            },
         ]
     }
     ...
@@ -123,12 +121,11 @@ const myLoader = ({ src, width, quality }) => {
 export default function Test({...}) {
     return (
         <Image
-          loader={myLoader}
-          src="images/profile.jpg"
-          height={108}
-          width={108}
-          alt={name}
-        />
+            loader={myLoader}
+            src="images/profile.jpg"
+            height={108}
+            width={108}
+            alt={name} />
     );
 }
 ```
