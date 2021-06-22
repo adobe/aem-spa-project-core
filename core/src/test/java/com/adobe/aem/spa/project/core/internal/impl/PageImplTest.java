@@ -253,4 +253,10 @@ class PageImplTest {
         verify(delegate, times(1)).getComponentsResourceTypes();
     }
 
+    @Test
+    void testGetBrandSlug() {
+        page.getBrandSlug();
+        verify(delegate, times(1)).getBrandSlug();
+    }
+
 }
