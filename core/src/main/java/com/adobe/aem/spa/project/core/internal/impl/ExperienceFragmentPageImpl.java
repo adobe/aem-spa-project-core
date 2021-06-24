@@ -8,8 +8,7 @@ import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 
 /**
- * ExperienceFragmentPageImpl.
- * @JsonSerialize is added to prevent errors being thrown in model.json export, since these don't work for this type of page.
+ * JsonSerialize annotation is added to prevent errors being thrown in model.json export, since these don't work for this type of page.
  */
 @Model(adaptables = SlingHttpServletRequest.class, adapters = {ExperienceFragmentPageExporter.class,
         ContainerExporter.class}, resourceType = {
@@ -18,7 +17,7 @@ import org.apache.sling.models.annotations.Model;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 @JsonSerialize(as = ExperienceFragmentPageExporter.class)
 public class ExperienceFragmentPageImpl extends PageImpl implements ExperienceFragmentPageExporter {
-    
+
     static final String XF_RESOURCE_TYPE = "spa-project-core/components/xf-page";
-   
+
 }
