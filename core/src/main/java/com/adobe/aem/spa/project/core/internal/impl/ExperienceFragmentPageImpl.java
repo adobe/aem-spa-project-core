@@ -29,7 +29,6 @@ public class ExperienceFragmentPageImpl extends PageImpl implements ExperienceFr
      */
     @Self
     @Via(type = ForcedResourceType.class, value = "core/wcm/components/page/v2/page")
-    @Optional
     protected com.adobe.cq.wcm.core.components.models.Page delegate;
 
 }
