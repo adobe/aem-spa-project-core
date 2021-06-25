@@ -198,51 +198,51 @@ public class PageImpl implements Page {
         return this.delegate.getLanguage();
     }
 
-    // this.delegate to Page v1
+    // Delegated to Page v1
     @Override
     public Calendar getLastModifiedDate() {
         return this.delegate.getLastModifiedDate();
     }
 
-    // this.delegate to Page v1
+    // Delegated to Page v1
     @Override
     @JsonIgnore
     public String[] getKeywords() {
         return this.delegate.getKeywords();
     }
 
-    // this.delegate to Page v1
+    // Delegated to Page v1
     @Override
     public String getDesignPath() {
         return this.delegate.getDesignPath();
     }
 
-    // this.delegate to Page v1
+    // Delegated to Page v1
     @Override
     public String getStaticDesignPath() {
         return this.delegate.getStaticDesignPath();
     }
 
-    // this.delegate to Page v1
+    // Delegated to Page v1
     @Override
     public String getTitle() {
         return this.delegate.getTitle();
     }
 
-    // this.delegate to Page v1
+    // Delegated to Page v1
     @Override
     public String getTemplateName() {
         return this.delegate.getTemplateName();
     }
 
-    // this.delegate to Page v1
+    // Delegated to Page v1
     @Override
     @JsonIgnore
     public String[] getClientLibCategories() {
         return this.delegate.getClientLibCategories();
     }
 
-    // this.delegate to Page v1
+    // Delegated to Page v1
     @NotNull
     @Override
     public String getExportedType() {
@@ -270,13 +270,13 @@ public class PageImpl implements Page {
         return this.delegate.getClientLibCategoriesJsHead();
     }
 
-    // this.delegate to Page v2
+    // Delegated to Page v2
     @Override
     public String getAppResourcesPath() {
         return this.delegate.getAppResourcesPath();
     }
 
-    // this.delegate to Page v2
+    // Delegated to Page v2
     @Override
     public String getCssClassNames() {
         return this.delegate.getCssClassNames();
@@ -289,14 +289,14 @@ public class PageImpl implements Page {
         return this.delegate.getExportedItemsOrder();
     }
 
-    // this.delegate to Page v2
+    // Delegated to Page v2
     @NotNull
     @Override
     public Map<String, ? extends ComponentExporter> getExportedItems() {
         return this.delegate.getExportedItems();
     }
 
-    // this.delegate to Page v2
+    // Delegated to Page v2
     @Nullable
     @Override
     public NavigationItem getRedirectTarget() {
