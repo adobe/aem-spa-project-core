@@ -27,22 +27,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Defines the {@code Page} Sling Model used for the {@code /apps/spa/project/core/models/page} component
  */
 @ConsumerType
-public interface Page extends com.adobe.cq.wcm.core.components.models.Page, HierarchyNodeExporter {
+public interface Page extends com.adobe.cq.wcm.core.components.models.Page, HierarchyNodeExporter, PageHierarchyRootExporter {
     /**
      * Key for the depth of the tree of pages that is to be exported
      */
     String PN_STRUCTURE_DEPTH = "structureDepth";
 
-    /**
-     * URL to the root model of the App
-     *
-     * @return {@link String}
-     */
-    @Nullable
-    @JsonIgnore
-    default String getHierarchyRootJsonExportUrl() {
-        throw new UnsupportedOperationException();
-    }
 
     /**
      * Root page model of the current hierarchy of pages

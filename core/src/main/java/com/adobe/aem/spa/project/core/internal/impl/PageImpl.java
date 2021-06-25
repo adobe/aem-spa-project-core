@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
 
+import com.adobe.aem.spa.project.core.models.PageHierarchyRootExporter;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Exporter;
@@ -102,6 +103,9 @@ public class PageImpl implements Page {
     @Via(type = ResourceSuperType.class)
     private com.adobe.cq.wcm.core.components.models.Page delegate;
 
+    @Self
+    private PageHierarchyRootExporter pageHierarchyRootUrlExporter;
+
     /**
      * {@link Map} containing the page models with their corresponding paths (as keys)
      */
@@ -116,12 +120,6 @@ public class PageImpl implements Page {
         this.descendedPageModels = descendedPageModels;
     }
 
-    /**
-     * Package-private setter for rootPage (required for tests)
-     */
-    void setRootPage(com.day.cq.wcm.api.Page rootPage) {
-        this.rootPage = rootPage;
-    }
 
     @Nullable
     @Override
@@ -148,18 +146,7 @@ public class PageImpl implements Page {
     @Nullable
     @Override
     public String getHierarchyRootJsonExportUrl() {
-        if (isRootPage()) {
-            return RequestUtils.getPageJsonExportUrl(request, currentPage);
-        }
-
-        if (rootPage == null) {
-            setRootPage(HierarchyUtils.getRootPage(resource, currentPage));
-        }
-
-        if (rootPage != null) {
-            return RequestUtils.getPageJsonExportUrl(request, rootPage);
-        }
-        return null;
+        return pageHierarchyRootUrlExporter.getHierarchyRootJsonExportUrl();
     }
 
     /**
@@ -170,24 +157,13 @@ public class PageImpl implements Page {
     @Nullable
     @Override
     public Page getHierarchyRootModel() {
-        if (isRootPage()) {
-            return this;
-        }
 
-        if (rootPage == null) {
-            setRootPage(HierarchyUtils.getRootPage(resource, currentPage));
-        }
-
-        if (rootPage == null) {
-            return null;
+        if(rootPage == null) {
+            rootPage = pageHierarchyRootUrlExporter.getRootPage();
         }
 
         return modelFactory.getModelFromWrappedRequest(HierarchyUtils.createHierarchyServletRequest(request, rootPage, currentPage),
             rootPage.getContentResource(), this.getClass());
-    }
-
-    private boolean isRootPage() {
-        return currentStyle != null && StyleUtils.isRootPage(currentStyle);
     }
 
     // Delegated to Page v1
@@ -307,16 +283,23 @@ public class PageImpl implements Page {
         return delegate.hasCloudconfigSupport();
     }
 
-    // Delegated to Page v2 
+    // Delegated to Page v2
     @NotNull
     @Override
     public Set<String> getComponentsResourceTypes() {
         return delegate.getComponentsResourceTypes();
     }
-    
-    // Delegated to Page v2 
+
+    // Delegated to Page v2
     @Override
     public String getBrandSlug() {
 		return delegate.getBrandSlug();
 	}
+
+    /**
+     * Package-private setter for rootPage (required for tests)
+     */
+    void setRootPage(com.day.cq.wcm.api.Page rootPage) {
+        this.rootPage = rootPage;
+    }
 }
