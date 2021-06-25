@@ -22,6 +22,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -100,6 +101,7 @@ public class PageImpl implements Page {
     // "delegate" object with which methods from Page v1/v2 can be used
     @Self
     @Via(type = ResourceSuperType.class)
+    @Optional
     private com.adobe.cq.wcm.core.components.models.Page delegate;
 
     /**
@@ -191,132 +193,136 @@ public class PageImpl implements Page {
     }
 
     // Delegated to Page v1
+
     @Override
     public String getLanguage() {
-        return delegate.getLanguage();
+        return this.getDelegate().getLanguage();
     }
 
-    // Delegated to Page v1
+    // this.getDelegate() to Page v1
     @Override
     public Calendar getLastModifiedDate() {
-        return delegate.getLastModifiedDate();
+        return this.getDelegate().getLastModifiedDate();
     }
 
-    // Delegated to Page v1
+    // this.getDelegate() to Page v1
     @Override
     @JsonIgnore
     public String[] getKeywords() {
-        return delegate.getKeywords();
+        return this.getDelegate().getKeywords();
     }
 
-    // Delegated to Page v1
+    // this.getDelegate() to Page v1
     @Override
     public String getDesignPath() {
-        return delegate.getDesignPath();
+        return this.getDelegate().getDesignPath();
     }
 
-    // Delegated to Page v1
+    // this.getDelegate() to Page v1
     @Override
     public String getStaticDesignPath() {
-        return delegate.getStaticDesignPath();
+        return this.getDelegate().getStaticDesignPath();
     }
 
-    // Delegated to Page v1
+    // this.getDelegate() to Page v1
     @Override
     public String getTitle() {
-        return delegate.getTitle();
+        return this.getDelegate().getTitle();
     }
 
-    // Delegated to Page v1
+    // this.getDelegate() to Page v1
     @Override
     public String getTemplateName() {
-        return delegate.getTemplateName();
+        return this.getDelegate().getTemplateName();
     }
 
-    // Delegated to Page v1
+    // this.getDelegate() to Page v1
     @Override
     @JsonIgnore
     public String[] getClientLibCategories() {
-        return delegate.getClientLibCategories();
+        return this.getDelegate().getClientLibCategories();
     }
 
-    // Delegated to Page v1
+    // this.getDelegate() to Page v1
     @NotNull
     @Override
     public String getExportedType() {
-        return delegate.getExportedType();
+        return this.getDelegate().getExportedType();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate()d to Page v2
     @Nullable
     @Override
     public String getMainContentSelector() {
-        return delegate.getMainContentSelector();
+        return this.getDelegate().getMainContentSelector();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate()d to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsBody() {
-        return delegate.getClientLibCategoriesJsBody();
+        return this.getDelegate().getClientLibCategoriesJsBody();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate()d to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsHead() {
-        return delegate.getClientLibCategoriesJsHead();
+        return this.getDelegate().getClientLibCategoriesJsHead();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate() to Page v2
     @Override
     public String getAppResourcesPath() {
-        return delegate.getAppResourcesPath();
+        return this.getDelegate().getAppResourcesPath();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate() to Page v2
     @Override
     public String getCssClassNames() {
-        return delegate.getCssClassNames();
+        return this.getDelegate().getCssClassNames();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate()d to Page v2
     @NotNull
     @Override
     public String[] getExportedItemsOrder() {
-        return delegate.getExportedItemsOrder();
+        return this.getDelegate().getExportedItemsOrder();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate() to Page v2
     @NotNull
     @Override
     public Map<String, ? extends ComponentExporter> getExportedItems() {
-        return delegate.getExportedItems();
+        return this.getDelegate().getExportedItems();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate() to Page v2
     @Nullable
     @Override
     public NavigationItem getRedirectTarget() {
-        return delegate.getRedirectTarget();
+        return this.getDelegate().getRedirectTarget();
     }
 
-    // Delegated to Page v2
+    // this.getDelegate()d to Page v2
     @Override
     public boolean hasCloudconfigSupport() {
-        return delegate.hasCloudconfigSupport();
+        return this.getDelegate().hasCloudconfigSupport();
     }
 
-    // Delegated to Page v2 
     @NotNull
     @Override
     public Set<String> getComponentsResourceTypes() {
-        return delegate.getComponentsResourceTypes();
+        return this.getDelegate().getComponentsResourceTypes();
     }
-    
-    // Delegated to Page v2 
+
     @Override
     public String getBrandSlug() {
-		return delegate.getBrandSlug();
+		return this.getDelegate().getBrandSlug();
 	}
+
+	protected com.adobe.cq.wcm.core.components.models.Page getDelegate(){
+        return this.delegate;
+    }
+
 }
