@@ -24,16 +24,12 @@ public class ExperienceFragmentPageImpl extends PageImpl implements ExperienceFr
 
     static final String XF_RESOURCE_TYPE = "spa-project-core/components/xf-page";
 
+    /**
+     * Override the getDelegate with a forced resource type one. We cannot inherit the core resource type on a XF page.
+     */
     @Self
     @Via(type = ForcedResourceType.class, value = "core/wcm/components/page/v2/page")
     @Optional
-    private com.adobe.cq.wcm.core.components.models.Page delegate;
+    protected com.adobe.cq.wcm.core.components.models.Page delegate;
 
-    /**
-     * Override the getDelegate with a forced resource type one. We cannot inherit the core resource type on a XF page.
-     * @return
-     */
-    protected com.adobe.cq.wcm.core.components.models.Page getDelegate(){
-        return this.delegate;
-    }
 }

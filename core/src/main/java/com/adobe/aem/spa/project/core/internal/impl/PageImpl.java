@@ -101,8 +101,7 @@ public class PageImpl implements Page {
     // "delegate" object with which methods from Page v1/v2 can be used
     @Self
     @Via(type = ResourceSuperType.class)
-    @Optional
-    private com.adobe.cq.wcm.core.components.models.Page delegate;
+    protected com.adobe.cq.wcm.core.components.models.Page delegate;
 
     /**
      * {@link Map} containing the page models with their corresponding paths (as keys)
@@ -196,133 +195,129 @@ public class PageImpl implements Page {
 
     @Override
     public String getLanguage() {
-        return this.getDelegate().getLanguage();
+        return this.delegate.getLanguage();
     }
 
-    // this.getDelegate() to Page v1
+    // this.delegate to Page v1
     @Override
     public Calendar getLastModifiedDate() {
-        return this.getDelegate().getLastModifiedDate();
+        return this.delegate.getLastModifiedDate();
     }
 
-    // this.getDelegate() to Page v1
+    // this.delegate to Page v1
     @Override
     @JsonIgnore
     public String[] getKeywords() {
-        return this.getDelegate().getKeywords();
+        return this.delegate.getKeywords();
     }
 
-    // this.getDelegate() to Page v1
+    // this.delegate to Page v1
     @Override
     public String getDesignPath() {
-        return this.getDelegate().getDesignPath();
+        return this.delegate.getDesignPath();
     }
 
-    // this.getDelegate() to Page v1
+    // this.delegate to Page v1
     @Override
     public String getStaticDesignPath() {
-        return this.getDelegate().getStaticDesignPath();
+        return this.delegate.getStaticDesignPath();
     }
 
-    // this.getDelegate() to Page v1
+    // this.delegate to Page v1
     @Override
     public String getTitle() {
-        return this.getDelegate().getTitle();
+        return this.delegate.getTitle();
     }
 
-    // this.getDelegate() to Page v1
+    // this.delegate to Page v1
     @Override
     public String getTemplateName() {
-        return this.getDelegate().getTemplateName();
+        return this.delegate.getTemplateName();
     }
 
-    // this.getDelegate() to Page v1
+    // this.delegate to Page v1
     @Override
     @JsonIgnore
     public String[] getClientLibCategories() {
-        return this.getDelegate().getClientLibCategories();
+        return this.delegate.getClientLibCategories();
     }
 
-    // this.getDelegate() to Page v1
+    // this.delegate to Page v1
     @NotNull
     @Override
     public String getExportedType() {
-        return this.getDelegate().getExportedType();
+        return this.delegate.getExportedType();
     }
 
-    // this.getDelegate()d to Page v2
+    // this.delegated to Page v2
     @Nullable
     @Override
     public String getMainContentSelector() {
-        return this.getDelegate().getMainContentSelector();
+        return this.delegate.getMainContentSelector();
     }
 
-    // this.getDelegate()d to Page v2
+    // this.delegated to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsBody() {
-        return this.getDelegate().getClientLibCategoriesJsBody();
+        return this.delegate.getClientLibCategoriesJsBody();
     }
 
-    // this.getDelegate()d to Page v2
+    // this.delegated to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsHead() {
-        return this.getDelegate().getClientLibCategoriesJsHead();
+        return this.delegate.getClientLibCategoriesJsHead();
     }
 
-    // this.getDelegate() to Page v2
+    // this.delegate to Page v2
     @Override
     public String getAppResourcesPath() {
-        return this.getDelegate().getAppResourcesPath();
+        return this.delegate.getAppResourcesPath();
     }
 
-    // this.getDelegate() to Page v2
+    // this.delegate to Page v2
     @Override
     public String getCssClassNames() {
-        return this.getDelegate().getCssClassNames();
+        return this.delegate.getCssClassNames();
     }
 
-    // this.getDelegate()d to Page v2
+    // this.delegated to Page v2
     @NotNull
     @Override
     public String[] getExportedItemsOrder() {
-        return this.getDelegate().getExportedItemsOrder();
+        return this.delegate.getExportedItemsOrder();
     }
 
-    // this.getDelegate() to Page v2
+    // this.delegate to Page v2
     @NotNull
     @Override
     public Map<String, ? extends ComponentExporter> getExportedItems() {
-        return this.getDelegate().getExportedItems();
+        return this.delegate.getExportedItems();
     }
 
-    // this.getDelegate() to Page v2
+    // this.delegate to Page v2
     @Nullable
     @Override
     public NavigationItem getRedirectTarget() {
-        return this.getDelegate().getRedirectTarget();
+        return this.delegate.getRedirectTarget();
     }
 
-    // this.getDelegate()d to Page v2
+    // this.delegated to Page v2
     @Override
     public boolean hasCloudconfigSupport() {
-        return this.getDelegate().hasCloudconfigSupport();
+        return this.delegate.hasCloudconfigSupport();
     }
 
     @NotNull
     @Override
     public Set<String> getComponentsResourceTypes() {
-        return this.getDelegate().getComponentsResourceTypes();
+        return this.delegate.getComponentsResourceTypes();
     }
 
     @Override
     public String getBrandSlug() {
-		return this.getDelegate().getBrandSlug();
+		return this.delegate.getBrandSlug();
 	}
-
-	protected com.adobe.cq.wcm.core.components.models.Page getDelegate(){
-        return this.delegate;
-    }
 
 }
