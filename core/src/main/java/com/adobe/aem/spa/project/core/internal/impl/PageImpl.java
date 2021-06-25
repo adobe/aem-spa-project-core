@@ -195,129 +195,129 @@ public class PageImpl implements Page {
 
     @Override
     public String getLanguage() {
-        return this.delegate.getLanguage();
+        return delegate.getLanguage();
     }
 
     // Delegated to Page v1
     @Override
     public Calendar getLastModifiedDate() {
-        return this.delegate.getLastModifiedDate();
+        return delegate.getLastModifiedDate();
     }
 
     // Delegated to Page v1
     @Override
     @JsonIgnore
     public String[] getKeywords() {
-        return this.delegate.getKeywords();
+        return delegate.getKeywords();
     }
 
     // Delegated to Page v1
     @Override
     public String getDesignPath() {
-        return this.delegate.getDesignPath();
+        return delegate.getDesignPath();
     }
 
     // Delegated to Page v1
     @Override
     public String getStaticDesignPath() {
-        return this.delegate.getStaticDesignPath();
+        return delegate.getStaticDesignPath();
     }
 
     // Delegated to Page v1
     @Override
     public String getTitle() {
-        return this.delegate.getTitle();
+        return delegate.getTitle();
     }
 
     // Delegated to Page v1
     @Override
     public String getTemplateName() {
-        return this.delegate.getTemplateName();
+        return delegate.getTemplateName();
     }
 
     // Delegated to Page v1
     @Override
     @JsonIgnore
     public String[] getClientLibCategories() {
-        return this.delegate.getClientLibCategories();
+        return delegate.getClientLibCategories();
     }
 
     // Delegated to Page v1
     @NotNull
     @Override
     public String getExportedType() {
-        return this.delegate.getExportedType();
+        return delegate.getExportedType();
     }
 
     // this.delegated to Page v2
     @Nullable
     @Override
     public String getMainContentSelector() {
-        return this.delegate.getMainContentSelector();
+        return delegate.getMainContentSelector();
     }
 
     // this.delegated to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsBody() {
-        return this.delegate.getClientLibCategoriesJsBody();
+        return delegate.getClientLibCategoriesJsBody();
     }
 
     // this.delegated to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsHead() {
-        return this.delegate.getClientLibCategoriesJsHead();
+        return delegate.getClientLibCategoriesJsHead();
     }
 
     // Delegated to Page v2
     @Override
     public String getAppResourcesPath() {
-        return this.delegate.getAppResourcesPath();
+        return delegate.getAppResourcesPath();
     }
 
     // Delegated to Page v2
     @Override
     public String getCssClassNames() {
-        return this.delegate.getCssClassNames();
+        return delegate.getCssClassNames();
     }
 
     // this.delegated to Page v2
     @NotNull
     @Override
     public String[] getExportedItemsOrder() {
-        return this.delegate.getExportedItemsOrder();
+        return delegate.getExportedItemsOrder();
     }
 
     // Delegated to Page v2
     @NotNull
     @Override
     public Map<String, ? extends ComponentExporter> getExportedItems() {
-        return this.delegate.getExportedItems();
+        return delegate.getExportedItems();
     }
 
     // Delegated to Page v2
     @Nullable
     @Override
     public NavigationItem getRedirectTarget() {
-        return this.delegate.getRedirectTarget();
+        return delegate.getRedirectTarget();
     }
 
     // this.delegated to Page v2
     @Override
     public boolean hasCloudconfigSupport() {
-        return this.delegate.hasCloudconfigSupport();
+        return delegate.hasCloudconfigSupport();
     }
 
     @NotNull
     @Override
     public Set<String> getComponentsResourceTypes() {
-        return this.delegate.getComponentsResourceTypes();
+        return delegate.getComponentsResourceTypes();
     }
 
     @Override
     public String getBrandSlug() {
-		return this.delegate.getBrandSlug();
+		return delegate.getBrandSlug();
 	}
 
 }
