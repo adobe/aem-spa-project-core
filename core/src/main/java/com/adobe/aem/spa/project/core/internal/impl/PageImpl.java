@@ -22,6 +22,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -100,7 +101,7 @@ public class PageImpl implements Page {
     // "delegate" object with which methods from Page v1/v2 can be used
     @Self
     @Via(type = ResourceSuperType.class)
-    private com.adobe.cq.wcm.core.components.models.Page delegate;
+    protected com.adobe.cq.wcm.core.components.models.Page delegate;
 
     /**
      * {@link Map} containing the page models with their corresponding paths (as keys)
@@ -191,6 +192,7 @@ public class PageImpl implements Page {
     }
 
     // Delegated to Page v1
+
     @Override
     public String getLanguage() {
         return delegate.getLanguage();
@@ -307,16 +309,15 @@ public class PageImpl implements Page {
         return delegate.hasCloudconfigSupport();
     }
 
-    // Delegated to Page v2 
     @NotNull
     @Override
     public Set<String> getComponentsResourceTypes() {
         return delegate.getComponentsResourceTypes();
     }
-    
-    // Delegated to Page v2 
+
     @Override
     public String getBrandSlug() {
 		return delegate.getBrandSlug();
 	}
+
 }
