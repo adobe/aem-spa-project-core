@@ -249,21 +249,21 @@ public class PageImpl implements Page {
         return delegate.getExportedType();
     }
 
-    // this.delegated to Page v2
+    // Delegated to Page v2
     @Nullable
     @Override
     public String getMainContentSelector() {
         return delegate.getMainContentSelector();
     }
 
-    // this.delegated to Page v2
+    // Delegated to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsBody() {
         return delegate.getClientLibCategoriesJsBody();
     }
 
-    // this.delegated to Page v2
+    // Delegated to Page v2
     @Override
     @JsonIgnore
     public String[] getClientLibCategoriesJsHead() {
@@ -282,7 +282,7 @@ public class PageImpl implements Page {
         return delegate.getCssClassNames();
     }
 
-    // this.delegated to Page v2
+    // Delegated to Page v2
     @NotNull
     @Override
     public String[] getExportedItemsOrder() {
@@ -303,7 +303,7 @@ public class PageImpl implements Page {
         return delegate.getRedirectTarget();
     }
 
-    // this.delegated to Page v2
+    // Delegated to Page v2
     @Override
     public boolean hasCloudconfigSupport() {
         return delegate.hasCloudconfigSupport();
