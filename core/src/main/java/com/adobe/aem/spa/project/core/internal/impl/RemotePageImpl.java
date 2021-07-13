@@ -27,13 +27,14 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 @Model(
     adaptables = SlingHttpServletRequest.class,
     adapters = { RemotePage.class, ContainerExporter.class },
-    resourceType = RemotePageImpl.RESOURCE_TYPE,
+    resourceType = { RemotePageImpl.RESOURCE_TYPE_SPA, RemotePageImpl.RESOURCE_TYPE_NEXT },
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class RemotePageImpl extends PageImpl implements RemotePage {
 
-    static final String RESOURCE_TYPE = "spa-project-core/components/remotepage";
+    protected static final String RESOURCE_TYPE_SPA = "spa-project-core/components/remotepage";
+    protected static final String RESOURCE_TYPE_NEXT = "spa-project-core/components/remotepagenext";
 
      @ValueMapValue
      private String remoteSPAUrl;
