@@ -33,8 +33,8 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class RemotePageImpl extends PageImpl implements RemotePage {
 
-    protected static final String RESOURCE_TYPE_SPA = "spa-project-core/components/remotepage";
-    protected static final String RESOURCE_TYPE_NEXT = "spa-project-core/components/remotepagenext";
+    static final String RESOURCE_TYPE_SPA = "spa-project-core/components/remotepage";
+    static final String RESOURCE_TYPE_NEXT = "spa-project-core/components/remotepagenext";
 
      @ValueMapValue
      private String remoteSPAUrl;
