@@ -110,6 +110,11 @@ public class PageImpl implements Page {
 
     private com.day.cq.wcm.api.Page rootPage;
 
+    //somehow figure out these 2. run modes?
+    private boolean isAuthor = false;
+    //configuration value? style?
+    private boolean useExtension = false;
+    
     /**
      * Package-private setter for descendedPageModels (required for tests)
      */
@@ -134,7 +139,7 @@ public class PageImpl implements Page {
     @Override
     public Map<String, ? extends Page> getExportedChildren() {
         if (descendedPageModels == null) {
-            setDescendedPageModels(HierarchyUtils.getDescendantsModels(request, currentPage, currentStyle, modelFactory));
+            setDescendedPageModels(HierarchyUtils.getDescendantsModels(request, currentPage, currentStyle, modelFactory, isAuthor, useExtension));
         }
 
         return descendedPageModels;
@@ -143,14 +148,14 @@ public class PageImpl implements Page {
     @NotNull
     @Override
     public String getExportedPath() {
-        return currentPage.getPath();
+        return RequestUtils.getURL(request, currentPage, isAuthor, useExtension );
     }
 
     @Nullable
     @Override
     public String getHierarchyRootJsonExportUrl() {
         if (isRootPage()) {
-            return RequestUtils.getPageJsonExportUrl(request, currentPage);
+            return RequestUtils.getPageJsonExportUrl(request, currentPage, isAuthor, useExtension);
         }
 
         if (rootPage == null) {
@@ -158,7 +163,7 @@ public class PageImpl implements Page {
         }
 
         if (rootPage != null) {
-            return RequestUtils.getPageJsonExportUrl(request, rootPage);
+            return RequestUtils.getPageJsonExportUrl(request, rootPage, isAuthor, useExtension);
         }
         return null;
     }
