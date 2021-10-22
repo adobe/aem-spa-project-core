@@ -34,12 +34,13 @@
     };
 
     const sanitizeUrl = (url) => {
-        let { pathname, origin } = new URL(url);
+        let { pathname, origin } = new URL(url, location.origin); // defaults to own origin
         pathname = pathname.replace(/\/\//, '/');
         return `${origin}${pathname}`;
     };
 
      const domain = document.body.dataset.remoteUrl;
+
      if(domain) {
          const manifestUrl = sanitizeUrl(`${domain}/asset-manifest.json`);
          fetch(manifestUrl)
