@@ -53,3 +53,4 @@ If the remote application to be edited has a different root DOM element/id, plea
 ## Limitations
 - Current implementation supports remote React applications only.
 - Internal css defined in the application's root html file as well as inline css on the root DOM node will not be available when doing remote rendering in AEM. However all external style sheets will be available as expected, as well as all styles within the React application.
+- Navigating and refreshing the page, within AEM Editor, to a page that does not exist on AEM site does not work. The result will be a 404.
