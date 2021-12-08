@@ -11,10 +11,15 @@
  */
 package com.adobe.aem.spa.project.core.internal.impl;
 
+import javax.inject.Inject;
+
+import com.adobe.aem.spa.project.core.internal.RemotePageConfig;
 import com.adobe.aem.spa.project.core.models.RemotePage;
 import com.adobe.cq.export.json.ContainerExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
+import org.apache.sling.caconfig.ConfigurationBuilder;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
@@ -39,8 +44,21 @@ public class RemotePageImpl extends PageImpl implements RemotePage {
      @ValueMapValue
      private String remoteSPAUrl;
 
+     @Inject
+    private Resource resource;
+    
      @Override
      public String getRemoteSPAUrl() {
-         return remoteSPAUrl;
-     }
+        ConfigurationBuilder configurationBuilder = resource.adaptTo(ConfigurationBuilder.class);
+        
+        if (remoteSPAUrl != null) {
+            return remoteSPAUrl;
+        }
+        else if (configurationBuilder != null) {
+            RemotePageConfig configbuilder = configurationBuilder.as (RemotePageConfig.class);       
+            return configbuilder.remoteSPAUrl();
+        }
+        return "";
+    }
+    
 }
