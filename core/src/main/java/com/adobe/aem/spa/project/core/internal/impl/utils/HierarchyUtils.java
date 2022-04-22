@@ -24,7 +24,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.request.RequestParameter;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.wrappers.SlingHttpServletRequestWrapper;
 import org.apache.sling.models.factory.ModelFactory;
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.adobe.aem.spa.project.core.internal.HierarchyConstants;
+import com.adobe.aem.spa.project.core.internal.impl.ComponentContextRequestWrapper;
 import com.adobe.aem.spa.project.core.internal.impl.HierarchyComponentContextWrapper;
 import com.adobe.aem.spa.project.core.models.Page;
 import com.day.cq.wcm.api.Template;
@@ -41,6 +41,7 @@ import com.day.cq.wcm.api.components.ComponentContext;
 import com.day.cq.wcm.api.designer.Style;
 import com.day.cq.wcm.api.policies.ContentPolicy;
 import com.day.cq.wcm.api.policies.ContentPolicyManager;
+import com.day.cq.wcm.commons.WCMUtils;
 
 import static com.adobe.aem.spa.project.core.internal.HierarchyConstants.ATTR_COMPONENT_CONTEXT;
 import static com.adobe.aem.spa.project.core.internal.HierarchyConstants.ATTR_CURRENT_PAGE;
@@ -72,6 +73,7 @@ public class HierarchyUtils {
      * @param entryPage Page that is the entry point of the request
      * @return A {@link SlingHttpServletRequestWrapper} containing the given page and request
      */
+    @Deprecated
     public static SlingHttpServletRequest createHierarchyServletRequest(@NotNull SlingHttpServletRequest request,
             @NotNull com.day.cq.wcm.api.Page page, @Nullable com.day.cq.wcm.api.Page entryPage) {
         SlingHttpServletRequest wrapperRequest = new SlingHttpServletRequestWrapper(request);
@@ -228,14 +230,14 @@ public class HierarchyUtils {
         // If the value is set to a negative value all descendants will be exposed (full traversal tree - aka infinity)
         // Descendants pages do not expose their child pages
         if (page == null || depth == 0 || Boolean.TRUE.equals(slingRequest.getAttribute(HierarchyConstants.ATTR_IS_CHILD_PAGE))) {
-            return Collections.emptyList();
+            return new ArrayList<>();
         }
 
         List<com.day.cq.wcm.api.Page> pages = new ArrayList<>();
         Iterator<com.day.cq.wcm.api.Page> childPagesIterator = page.listChildren();
 
         if (childPagesIterator == null || !childPagesIterator.hasNext()) {
-            return Collections.emptyList();
+            return new ArrayList<>();
         }
 
         // we are about to explore one lower level down the tree
@@ -267,7 +269,7 @@ public class HierarchyUtils {
     }
 
     @Nullable
-    protected static Page getDescendantModel(com.day.cq.wcm.api.Page childPage, SlingHttpServletRequest slingRequestWrapper,
+    protected static Page getDescendantModel(com.day.cq.wcm.api.Page childPage, SlingHttpServletRequest request,
             ModelFactory modelFactory) {
         Resource childPageContentResource = childPage.getContentResource();
 
@@ -282,7 +284,9 @@ public class HierarchyUtils {
             childPageContentResource = templatedResource;
         }
 
-        SlingHttpServletRequest wrapperRequest = HierarchyUtils.createHierarchyServletRequest(slingRequestWrapper, childPage, null);
+        HierarchyComponentContextWrapper componentContextWrapper =
+            new HierarchyComponentContextWrapper(WCMUtils.getComponentContext(request), childPage);
+        final SlingHttpServletRequest wrapperRequest = new ComponentContextRequestWrapper(request, componentContextWrapper);
 
         return modelFactory.getModelFromWrappedRequest(wrapperRequest, childPageContentResource, Page.class);
     }
@@ -305,20 +309,17 @@ public class HierarchyUtils {
         List<Pattern> pageFilterPatterns = HierarchyUtils.getStructurePatterns(request, currentStyle);
 
         // Setting the child page to true to prevent child pages to expose their own child pages
-        SlingHttpServletRequest slingRequestWrapper = new SlingHttpServletRequestWrapper(request);
-
         Map<String, Page> itemWrappers = new LinkedHashMap<>();
-
-        List<com.day.cq.wcm.api.Page> descendants = HierarchyUtils.getDescendants(currentPage, slingRequestWrapper, pageFilterPatterns,
+        List<com.day.cq.wcm.api.Page> descendants = HierarchyUtils.getDescendants(currentPage, request, pageFilterPatterns,
             pageTreeTraversalDepth);
 
         HierarchyUtils.addEntryPointPage(request, currentPage, descendants);
 
         // Add a flag to inform the model of the descendant page that it is not the root of the returned hierarchy
-        slingRequestWrapper.setAttribute(HierarchyConstants.ATTR_IS_CHILD_PAGE, true);
+        request.setAttribute(HierarchyConstants.ATTR_IS_CHILD_PAGE, true);
 
         for (com.day.cq.wcm.api.Page childPage : descendants) {
-            Page descendantModel = getDescendantModel(childPage, slingRequestWrapper, modelFactory);
+            Page descendantModel = getDescendantModel(childPage, request, modelFactory);
             if (descendantModel != null) {
                 itemWrappers.put(childPage.getPath(), descendantModel);
             }

@@ -22,7 +22,6 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Optional;
 import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -183,8 +182,7 @@ public class PageImpl implements Page {
             return null;
         }
 
-        return modelFactory.getModelFromWrappedRequest(HierarchyUtils.createHierarchyServletRequest(request, rootPage, currentPage),
-            rootPage.getContentResource(), this.getClass());
+        return modelFactory.getModelFromWrappedRequest(request, rootPage.getContentResource(), this.getClass());
     }
 
     private boolean isRootPage() {
