@@ -13,9 +13,11 @@
 package com.adobe.aem.spa.project.core.internal.impl.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -24,6 +26,8 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.factory.ModelFactory;
+import org.apache.sling.testing.mock.osgi.MockOsgi;
+import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -40,16 +44,20 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.Template;
 import com.day.cq.wcm.api.TemplatedResource;
 import com.day.cq.wcm.api.components.ComponentContext;
+import com.day.cq.wcm.api.designer.Style;
 import com.day.cq.wcm.api.policies.ContentPolicy;
 import com.day.cq.wcm.api.policies.ContentPolicyManager;
+import com.day.cq.wcm.commons.WCMUtils;
 
 import static com.adobe.aem.spa.project.core.internal.HierarchyConstants.ATTR_COMPONENT_CONTEXT;
 import static com.adobe.aem.spa.project.core.internal.HierarchyConstants.ATTR_CURRENT_PAGE;
 import static com.adobe.aem.spa.project.core.internal.HierarchyConstants.ATTR_HIERARCHY_ENTRY_POINT_PAGE;
 import static com.adobe.aem.spa.project.core.internal.HierarchyConstants.PN_IS_ROOT;
 import static com.adobe.aem.spa.project.core.internal.HierarchyConstants.PN_STRUCTURE_PATTERNS;
+import static com.adobe.aem.spa.project.core.models.Page.PN_STRUCTURE_DEPTH;
 import static org.apache.commons.collections.IteratorUtils.emptyIterator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -86,7 +94,6 @@ class HierarchyUtilsTest {
     @Mock
     private Page page;
 
-    @Mock
     private SlingHttpServletRequest request;
 
     @Mock
@@ -98,7 +105,7 @@ class HierarchyUtilsTest {
     @Mock
     private Resource resource;
 
-    private List<Pattern> structurePatterns = new ArrayList<>();
+    private final List<Pattern> structurePatterns = new ArrayList<>();
 
     @Mock
     private TemplatedResource templatedResource;
@@ -107,11 +114,17 @@ class HierarchyUtilsTest {
     void beforeEach() {
         // Pages
         when(currentPage.getPath()).thenReturn("/path/to/current/page");
+
+        when(entryPage.getContentResource()).thenReturn(mock(Resource.class));
         when(entryPage.getPath()).thenReturn("/path/to/entry/page");
-        when(request.getAttribute(ATTR_HIERARCHY_ENTRY_POINT_PAGE)).thenReturn(entryPage);
 
         // Requests
+        SlingHttpServletRequest mockSlingHttpServletRequest = new MockSlingHttpServletRequest(MockOsgi.newBundleContext());
+        mockSlingHttpServletRequest.setAttribute(ATTR_HIERARCHY_ENTRY_POINT_PAGE, entryPage);
+
+        request = spy(mockSlingHttpServletRequest);
         when(request.getRequestParameter(eq(PN_STRUCTURE_PATTERNS.toLowerCase()))).thenReturn(requestParameter);
+        when(request.adaptTo(Page.class)).thenReturn(currentPage);
     }
 
     @Test
@@ -304,4 +317,104 @@ class HierarchyUtilsTest {
         when(modelFactory.getModelFromWrappedRequest(any(), any(), any())).thenReturn(childPageModel);
         assertEquals(childPageModel, HierarchyUtils.getDescendantModel(childPage, requestWrapper, modelFactory));
     }
+
+    @Nested
+    @DisplayName("getDescendantsModels")
+    class TestGetDescendantsModels {
+
+        @Mock
+        Style style;
+
+        List<Page> children;
+
+        @BeforeEach
+        void beforeEach() {
+            children = Arrays.asList(
+                getMockPage("/path/to/child1"),
+                getMockPage("/path/to/child2")
+            );
+
+            when(currentPage.listChildren()).thenAnswer((Answer<Iterator<Page>>) i -> children.listIterator());
+
+            when(modelFactory.getModelFromWrappedRequest(any(SlingHttpServletRequest.class), any(), any()))
+                .thenAnswer(invocationOnMock -> new SpyPageImpl(invocationOnMock.getArgument(0)));
+
+            when(style.get(PN_STRUCTURE_DEPTH, Integer.class)).thenReturn(2);
+        }
+
+        @Test
+        void testPageWithNoChildren() {
+            // having
+            when(currentPage.listChildren()).thenReturn(null);
+
+            // when
+            final Map<String, com.adobe.aem.spa.project.core.models.Page> descendantsModels =
+                HierarchyUtils.getDescendantsModels(request, currentPage, style, modelFactory);
+
+            // then
+            assertTrue(descendantsModels.containsKey(entryPage.getPath()));
+            assertEquals(1, descendantsModels.size());
+        }
+
+        @Test
+        void testStyleWithZeroDepth() {
+            // having
+            when(style.get(PN_STRUCTURE_DEPTH, Integer.class)).thenReturn(0);
+
+            // when
+            final Map<String, com.adobe.aem.spa.project.core.models.Page> descendantsModels =
+                HierarchyUtils.getDescendantsModels(request, currentPage, style, modelFactory);
+
+            // then
+            assertTrue(descendantsModels.containsKey(entryPage.getPath()));
+            assertEquals(1, descendantsModels.size());
+        }
+
+        @Test
+        void testAllModels() {
+            // when
+            final Map<String, com.adobe.aem.spa.project.core.models.Page> descendantsModels =
+                HierarchyUtils.getDescendantsModels(request, currentPage, style, modelFactory);
+
+            // then
+            assertTrue(descendantsModels.containsKey(entryPage.getPath()));
+            assertEquals(children.size() + 1, descendantsModels.size());
+            children.forEach(child -> {
+                final String childPath = child.getPath();
+                final SpyPageImpl page = (SpyPageImpl) descendantsModels.get(childPath);
+                assertNotNull(page);
+
+                assertComponentContext(page.getOriginalRequest(), childPath);
+            });
+        }
+
+        private void assertComponentContext(SlingHttpServletRequest request, String childPath) {
+            final ComponentContext componentContext = WCMUtils.getComponentContext(request);
+            assertEquals(childPath, componentContext.getPage().getPath(), "ComponentContext has wrong path");
+        }
+
+        private Page getMockPage(String path) {
+            final Resource resource = mock(Resource.class);
+            when(resource.getPath()).thenReturn(path);
+
+            final Page page = mock(Page.class);
+            when(page.getPath()).thenReturn(path);
+            when(page.getContentResource()).thenReturn(resource);
+
+            return page;
+        }
+
+        private class SpyPageImpl implements com.adobe.aem.spa.project.core.models.Page {
+            private final SlingHttpServletRequest originalRequest;
+
+            public SpyPageImpl(SlingHttpServletRequest request) {
+                super();
+                this.originalRequest = request;
+            }
+
+            SlingHttpServletRequest getOriginalRequest() { return originalRequest; }
+        }
+
+    }
+
 }
