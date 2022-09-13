@@ -14,10 +14,15 @@ package com.adobe.aem.spa.project.core.internal.impl;
 import com.adobe.aem.spa.project.core.models.RemotePage;
 import com.adobe.cq.export.json.ContainerExporter;
 import com.adobe.cq.export.json.ExporterConstants;
+import com.day.cq.commons.inherit.InheritanceValueMap;
+import com.day.cq.wcm.api.Page;
+import com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap;
+import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 /**
@@ -36,11 +41,26 @@ public class RemotePageImpl extends PageImpl implements RemotePage {
     static final String RESOURCE_TYPE_SPA = "spa-project-core/components/remotepage";
     static final String RESOURCE_TYPE_NEXT = "spa-project-core/components/remotepagenext";
 
+    @Self
+    private SlingHttpServletRequest request;
+
      @ValueMapValue
      private String remoteSPAUrl;
 
      @Override
      public String getRemoteSPAUrl() {
-         return remoteSPAUrl;
-     }
+        String spaUrl = "";
+
+        if(remoteSPAUrl != null) {
+            spaUrl = remoteSPAUrl;
+        } else {
+            PageManager pageManager = request.getResourceResolver().adaptTo(PageManager.class);
+            Page page = pageManager.getContainingPage(request.getResource());
+            if(page != null) {
+                InheritanceValueMap pageProperties = new HierarchyNodeInheritanceValueMap(page.getContentResource());
+                spaUrl = pageProperties.getInherited("remoteSPAUrl", "");
+            }
+        }
+        return spaUrl;
+    }
 }
