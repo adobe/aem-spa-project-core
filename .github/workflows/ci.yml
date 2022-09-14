@@ -21,5 +21,3 @@ jobs:
         with:
           name: core/target/site
           path: coverage
-      - name: Upload code coverage report to codecov.io and comment in pull request
-        uses: codecov/codecov-action@v1
