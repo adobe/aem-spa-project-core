@@ -13,8 +13,8 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
         with:
-          repository: 'adobe/aem-spa-project-core'
-          ref: 'master'
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          ref: ${{ github.event.workflow_run.head_branch }}
           fetch-depth: 0
       - name: Upload Sonar report to sonarcloud.io and comment in pull request
         run: mvn -B verify sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=../core/target/site/jacoco/jacoco.xml -Dsonar.organization=adobeinc -Dsonar.projectKey=adobe_aem-spa-project-core -Dsonar.login=$SONAR_TOKEN
