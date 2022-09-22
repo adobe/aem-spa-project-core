@@ -4,6 +4,7 @@ on:
     workflows: ["Continuous Integration"]
     types: 
       - completed
+  workflow_dispatch:
 jobs:
   sonar:
     name: Sonar
