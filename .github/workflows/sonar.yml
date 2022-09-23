@@ -4,22 +4,30 @@ on:
     workflows: ["Continuous Integration"]
     types: 
       - completed
+  workflow_dispatch:
 jobs:
   sonar:
     name: Sonar
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success'
+    # if: github.event.workflow_run.conclusion == 'success'
+    env:
+     PR_KEY: ${{ github.event.workflow_run.pull_requests[0].number }} 
     steps:  
       - name: Checkout source code
         uses: actions/checkout@v2
         with:
-          repository: 'adobe/aem-spa-project-core'
-          ref: 'main'
+          repository: ${{ github.event.workflow_run.head_repository.full_name }}
+          ref: ${{ github.event.workflow_run.head_branch }}
           fetch-depth: 0
-      - name: Upload code coverage report to codecov.io and comment in pull request
-        uses: codecov/codecov-action@v1
       - name: Upload Sonar report to sonarcloud.io and comment in pull request
-        run: mvn -B verify sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=../core/target/site/jacoco/jacoco.xml -Dsonar.organization=adobeinc -Dsonar.projectKey=adobe_aem-spa-project-core -Dsonar.login=$SONAR_TOKEN
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          mvn -B verify sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=../core/target/site/jacoco/jacoco.xml -Dsonar.organization=adobeinc -Dsonar.projectKey=adobe_aem-spa-project-core -Dsonar.login=$SONAR_TOKEN -Dsonar.branch.name=fork/sonar -Dsonar.scm.revision=${{ github.event.workflow_run.head_sha }} -Dsonar.pullrequest.key=${{ github.event.workflow_run.pull_requests[0].number }} -Dsonar.pullrequest.branch=${{ github.event.workflow_run.pull_requests[0].head.ref }} -Dsonar.pullrequest.base=${{ github.event.workflow_run.pull_requests[0].base.ref }}
+          echo "$BRANCH_NAME"
+          echo ${{ github.event.workflow_run.head_sha }}
+          echo "PR_KEY"
+
+
