@@ -13,16 +13,14 @@ on:
         description: 'PR Branch'     
         required: true
       prBase:
-        description: 'PR Base Branch'     
+        description: 'PR Key'     
         required: true
-        default: master
 jobs:
   sonar:
     name: Sonar
     runs-on: ubuntu-latest
     # if: github.event.workflow_run.conclusion == 'success'
-    env:
-     PR_KEY: ${{ github.event.workflow_run.pull_requests[0].number }} 
+    # mvn -B verify sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=../core/target/site/jacoco/jacoco.xml -Dsonar.organization=adobeinc -Dsonar.projectKey=adobe_aem-spa-project-core -Dsonar.login=$SONAR_TOKEN -Dsonar.pullrequest.key=${{ github.event.inputs.prKey }} -Dsonar.pullrequest.branch=${{ github.event.workflow_run.pull_requests[0].head.ref }} -Dsonar.pullrequest.base=${{ github.event.workflow_run.pull_requests[0].base.ref }}
     steps:  
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -36,9 +34,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           BRANCH_NAME: ${{ github.event.workflow_run.head_branch }}
         run: |
-          mvn -B verify sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=../core/target/site/jacoco/jacoco.xml -Dsonar.organization=adobeinc -Dsonar.projectKey=adobe_aem-spa-project-core -Dsonar.login=$SONAR_TOKEN -Dsonar.pullrequest.key=${{ github.event.inputs.prKey }} -Dsonar.pullrequest.branch=${{ github.event.inputs.prBranch }} -Dsonar.pullrequest.base=${{ github.event.inputs.prBase }}
-          echo "$BRANCH_NAME"
-          echo ${{ github.event.workflow_run.head_sha }}
-          echo "PR_KEY"
+          echo ${{github.event.number}}
+          echo ${{ github.event.workflow_run.head_branch }}
 
 
