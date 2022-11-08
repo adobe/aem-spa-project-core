@@ -259,4 +259,10 @@ class PageImplTest {
         verify(delegate, times(1)).getBrandSlug();
     }
 
+    @Test
+    void testHtmlPageItems() {
+        page.getHtmlPageItems();
+        verify(delegate, times(1)).getHtmlPageItems();
+    }
+
 }
