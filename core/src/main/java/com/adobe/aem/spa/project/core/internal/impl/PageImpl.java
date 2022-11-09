@@ -13,6 +13,7 @@
 package com.adobe.aem.spa.project.core.internal.impl;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import java.util.Set;
@@ -39,6 +40,7 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ContainerExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.export.json.hierarchy.type.HierarchyTypes;
+import com.adobe.cq.wcm.core.components.models.HtmlPageItem;
 import com.adobe.cq.wcm.core.components.models.NavigationItem;
 import com.day.cq.wcm.api.designer.Style;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -318,4 +320,9 @@ public class PageImpl implements Page {
 		return delegate.getBrandSlug();
 	}
 
+    @Nullable
+    @Override
+    public  List<HtmlPageItem> getHtmlPageItems() {
+        return delegate.getHtmlPageItems();
+    }
 }
